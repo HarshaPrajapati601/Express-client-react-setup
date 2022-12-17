@@ -1,14 +1,6 @@
 import axios from 'axios';
-import { useEffect } from 'react';
 
 const App = () => {
-  // useEffect(() => {
-  //   axios.get('/api/users').then(
-  //     (response) =>  {
-  //       console.log("respn", response.data);
-  //     }
-  //   )
-  // }, [])
 
   const addUser = () => {
     axios.get('/api/users').then(
@@ -19,9 +11,9 @@ const App = () => {
   }
   
   return (
-    <div className='app'>
+    <div className='app flex-d justify-content-center'>
       <button onClick={() => addUser()}>
-
+    Add user
       </button>
   </div>
   )

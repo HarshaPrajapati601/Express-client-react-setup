@@ -7,13 +7,37 @@ const mongoUri = "mongodb+srv://Josephy1605:aeqt03Q6xa4Gxw2H@cluster0.h0kkwov.mo
 
 //Now lets connect to mongo db
 
-MongoClient.connect(mongoUri,{ useNewUrlParser: true,
-    useUnifiedTopology: true }).then((client,err)=>{
-    if(err) {
-        throw(err);
+// MongoClient.connect(mongoUri,{ useNewUrlParser: true,
+//     useUnifiedTopology: true }).then((client,err)=>{
+//     if(err) {
+//         throw(err);
+//     }
+//     console.log("connected to the db");
+//  });
+
+// New way - creating an instance of the connection
+const client = new MongoClient(mongoUri);
+
+//creating routes
+app.get('/api/users', async(req, res) => {
+    try{
+        await client.connect();
+        const database = client.db('myApp');
+        const collection = database.collection('users');
+        const query = await collection.insertOne({
+            name: 'Francis',
+            lastName: 'Jones'
+        });
+        console.log("que", query);
+        res.status(200).json({awesome: 'yes'});
+    } catch(err) {
+        console.log("error handles", err)
+    } finally {
+        await client.close();
+        console.log("All is done");
     }
-    console.log("connected to the db");
- });
+})
+
 
 
 const PORT = process.env.PORT || 8000;
