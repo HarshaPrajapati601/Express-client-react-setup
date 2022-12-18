@@ -62,6 +62,21 @@ app.post('/api/addCar', (req, res) => {
     // Car.remove({}, (err, doc) => { -- removes all data
  })
 
+ // UPDATE
+ app.post('/api/updateCar', (req, res) => {
+    const id = req.body.id;
+    const brand = req.body.brand;
+    Car.updateOne({_id: id}, {
+        $set: {
+            brand: brand
+        }}, (err, doc) => {
+            if(err) return console.log(err);
+            return res.json(doc);
+        } )
+        // findBYIdANdUpdate
+
+ })
+
 //this schema need to know that it have to work on a collection
 
 
